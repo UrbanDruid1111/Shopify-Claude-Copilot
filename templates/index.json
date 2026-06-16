@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "urbandruid_home": {
+      "type": "urbandruid-home",
+      "settings": {}
+    }
+  },
+  "order": ["urbandruid_home"]
+}
