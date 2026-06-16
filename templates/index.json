@@ -1,9 +1,12 @@
 {
   "sections": {
-    "urbandruid_home": {
-      "type": "urbandruid-home",
-      "settings": {}
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
     }
   },
-  "order": ["urbandruid_home"]
+  "order": ["main"]
 }
