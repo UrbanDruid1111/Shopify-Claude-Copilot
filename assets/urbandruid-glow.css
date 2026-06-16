@@ -144,31 +144,63 @@
 }
 
 /* ════════════════════════════════════════════
-   HERO TEXT — Myco Mystics amber fire glow
+   HERO TEXT — crisp glyphs, halo carries glow
    ════════════════════════════════════════════ */
-.ud-hero__eyebrow {
-  text-shadow:
-    0 0 20px rgba(245, 200, 66, 0.80),
-    0 0 40px rgba(232, 160, 32, 0.55),
-    0 0 70px rgba(232, 160, 32, 0.30),
-    0 1px 3px rgba(0, 0, 0, 0.70);
+
+/* Large radial halo sits behind title block;
+   heavy atmospheric glow lives here, not on the
+   text-shadow, so glyphs stay razor-sharp. */
+.ud-hero__content {
+  position: relative;
 }
 
+.ud-hero__content::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 28%;
+  transform: translate(-50%, -50%);
+  width: 700px;
+  height: 700px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(232, 160, 32, 0.20) 0%,
+    rgba(245, 200, 66, 0.09) 38%,
+    transparent 70%
+  );
+  animation: ud-title-halo 7s ease-in-out infinite;
+  pointer-events: none;
+  z-index: -1;
+}
+
+@keyframes ud-title-halo {
+  0%, 100% { opacity: 0.65; transform: translate(-50%, -50%) scale(1); }
+  50%       { opacity: 1;    transform: translate(-50%, -50%) scale(1.09); }
+}
+
+/* URBAN = cream white (inherits theme), DRUID = amber gold */
 .ud-hero__title {
   text-shadow:
-    0 0 30px rgba(245, 200, 66, 0.70),
-    0 0 60px rgba(232, 160, 32, 0.48),
-    0 0 100px rgba(232, 160, 32, 0.24),
-    0 0 160px rgba(245, 200, 66, 0.10),
-    0 2px 6px rgba(0, 0, 0, 0.65);
+    0 0 20px rgba(245, 200, 66, 0.35),
+    0 0 60px rgba(232, 160, 32, 0.25);
 }
 
 .ud-hero__title em {
+  color: #F5C842;
+  font-style: inherit;
   text-shadow:
-    0 0 20px rgba(245, 200, 66, 0.92),
-    0 0 45px rgba(232, 160, 32, 0.68),
-    0 0 80px rgba(232, 160, 32, 0.38),
-    0 0 120px rgba(245, 200, 66, 0.18);
+    0 0 20px rgba(245, 200, 66, 0.40),
+    0 0 60px rgba(232, 160, 32, 0.28);
+}
+
+/* One soft outer halo only — no glyph bleed */
+.ud-hero__eyebrow {
+  text-shadow: 0 0 32px rgba(245, 200, 66, 0.45);
+}
+
+/* No text-shadow — subtitle stays legible */
+.ud-hero__subtitle {
+  text-shadow: none;
 }
 
 /* ════════════════════════════════════════════
