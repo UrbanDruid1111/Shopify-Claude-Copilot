@@ -3,18 +3,109 @@
    Ambient radial gradient overlays & atmospheric effects
    ============================================ */
 
-/* Hero glow — forest green + gold bleed */
+/* ── Gold token — warm Myco Mystics amber ── */
+:root {
+  --ud-gold: #D4A843;
+  --ud-gold-dim: rgba(212, 168, 67, 0.18);
+  --ud-gold-pulse: rgba(212, 168, 67, 0.32);
+}
+
+/* ── Hero — breathing amber halo ── */
+.ud-hero {
+  position: relative;
+  overflow: hidden;
+}
+
 .ud-hero__bg {
   position: absolute;
   inset: 0;
   background:
     radial-gradient(ellipse 65% 55% at 70% 45%, rgba(42, 74, 62, 0.18) 0%, transparent 70%),
-    radial-gradient(ellipse 45% 45% at 28% 78%, rgba(200, 169, 110, 0.08) 0%, transparent 62%);
+    radial-gradient(ellipse 45% 45% at 28% 78%, rgba(212, 168, 67, 0.10) 0%, transparent 62%);
   pointer-events: none;
   z-index: 1;
 }
 
-/* Manifesto section ambient glow */
+/* Breathing radial halo behind hero content */
+.ud-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 42%, rgba(212, 168, 67, 0.07) 0%, transparent 68%);
+  animation: ud-breathe 6s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes ud-breathe {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50%       { opacity: 1;   transform: scale(1.06); }
+}
+
+/* ── Hero title — deep amber text-shadow glow ── */
+.ud-hero__title {
+  text-shadow:
+    0 0 40px rgba(212, 168, 67, 0.45),
+    0 0 80px rgba(212, 168, 67, 0.20),
+    0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.ud-hero__title em {
+  text-shadow:
+    0 0 30px rgba(212, 168, 67, 0.65),
+    0 0 60px rgba(212, 168, 67, 0.30);
+}
+
+/* ── Gold buttons — ember pulse ── */
+.ud-btn--primary {
+  position: relative;
+  box-shadow:
+    0 0 12px rgba(212, 168, 67, 0.30),
+    0 0 28px rgba(212, 168, 67, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  animation: ud-ember 3.5s ease-in-out infinite;
+}
+
+@keyframes ud-ember {
+  0%, 100% { box-shadow: 0 0 12px rgba(212, 168, 67, 0.30), 0 0 28px rgba(212, 168, 67, 0.12), inset 0 1px 0 rgba(255,255,255,0.08); }
+  50%       { box-shadow: 0 0 20px rgba(212, 168, 67, 0.55), 0 0 48px rgba(212, 168, 67, 0.22), inset 0 1px 0 rgba(255,255,255,0.08); }
+}
+
+.ud-btn--outline {
+  box-shadow: 0 0 8px rgba(212, 168, 67, 0.15), inset 0 0 0 1px rgba(212, 168, 67, 0.35);
+  transition: box-shadow 0.3s ease;
+}
+
+.ud-btn--outline:hover {
+  box-shadow: 0 0 18px rgba(212, 168, 67, 0.40), inset 0 0 0 1px rgba(212, 168, 67, 0.70);
+}
+
+/* ── Glowing divider lines ── */
+.ud-manifesto__line {
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(212, 168, 67, 0.20) 20%,
+    rgba(212, 168, 67, 0.65) 50%,
+    rgba(212, 168, 67, 0.20) 80%,
+    transparent 100%
+  );
+  box-shadow: 0 0 8px rgba(212, 168, 67, 0.30);
+  animation: ud-line-pulse 4s ease-in-out infinite;
+}
+
+@keyframes ud-line-pulse {
+  0%, 100% { opacity: 0.7; }
+  50%       { opacity: 1; box-shadow: 0 0 16px rgba(212, 168, 67, 0.50); }
+}
+
+/* ── Manifesto section ambient glow ── */
+.ud-manifesto {
+  position: relative;
+  overflow: hidden;
+}
+
 .ud-manifesto::before {
   content: '';
   position: absolute;
@@ -23,7 +114,24 @@
   pointer-events: none;
 }
 
-/* Reusable glow utility classes */
+.ud-manifesto__quote {
+  text-shadow: 0 0 30px rgba(212, 168, 67, 0.20);
+}
+
+/* ── Inner circle section glow ── */
+.ud-inner-circle {
+  position: relative;
+}
+
+.ud-inner-circle::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 55% at 50% 40%, rgba(212, 168, 67, 0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Reusable glow utilities ── */
 .ud-glow-forest {
   position: relative;
 }
@@ -42,15 +150,15 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(200, 169, 110, 0.10) 0%, transparent 68%);
+  background: radial-gradient(ellipse 55% 45% at 50% 50%, rgba(212, 168, 67, 0.10) 0%, transparent 68%);
   pointer-events: none;
 }
 
-/* Section-level glow backgrounds */
+/* ── Section-level glow backgrounds ── */
 .ud-section--glow-forest {
   background-image: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(42, 74, 62, 0.10) 0%, transparent 70%);
 }
 
 .ud-section--glow-gold {
-  background-image: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(200, 169, 110, 0.07) 0%, transparent 70%);
+  background-image: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(212, 168, 67, 0.07) 0%, transparent 70%);
 }
