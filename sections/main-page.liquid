@@ -1,57 +1,339 @@
-{{ 'section-main-page.css' | asset_url | stylesheet_tag }}
+{%- liquid
+  assign cta_primary_label     = section.settings.cta_primary_label     | default: 'Shop the Drop'
+  assign cta_primary_url       = section.settings.cta_primary_url       | default: '/collections/all'
+  assign cta_secondary_label   = section.settings.cta_secondary_label   | default: 'The Brand'
+  assign cta_secondary_url     = section.settings.cta_secondary_url     | default: '/pages/about'
+  assign manifesto_quote       = section.settings.manifesto_quote       | default: '"The concrete remembers the forest. The forest never forgot the concrete."'
+  assign featured_product      = section.settings.featured_product
+-%}
 
-{%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
-  }
-{%- endstyle -%}
-
-<div class="page-width page-width--narrow section-{{ section.id }}-padding">
-  <h1 class="main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    {{ page.title | escape }}
-  </h1>
-  <div class="rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    {{ page.content }}
+<!-- ═══ HERO ═══ -->
+<section class="ud-hero">
+  <div class="ud-hero__bg"></div>
+  <div class="ud-hero__grain"></div>
+  <div class="ud-hero__content">
+    <span class="ud-hero__eyebrow ud-reveal">{{ section.settings.hero_eyebrow | default: 'Premium Heavyweight Streetwear' }}</span>
+    <h1 class="ud-hero__title ud-reveal ud-reveal--delay-1">Urban<em>Druid</em></h1>
+    <p class="ud-hero__subtitle ud-reveal ud-reveal--delay-2">{{ section.settings.hero_subtitle | default: 'Premium streetwear for people who read the fine print on civilisation.' }}</p>
+    <div class="ud-hero__actions ud-reveal ud-reveal--delay-3">
+      <a href="{{ cta_primary_url }}" class="ud-btn ud-btn--primary">{{ cta_primary_label }}</a>
+      <a href="{{ cta_secondary_url }}" class="ud-btn ud-btn--outline">{{ cta_secondary_label }}</a>
+    </div>
   </div>
-</div>
+  <div class="ud-hero__scroll">Scroll</div>
+</section>
+
+<!-- ═══ COLLECTIONS SPLIT ═══ -->
+<section id="shop" class="ud-section ud-section--tight ud-section--dark">
+  <div class="ud-collections ud-reveal">
+
+    <a href="{{ section.settings.collection_a_url | default: '/collections/dissent' }}" class="ud-collection-card">
+      {%- if section.settings.collection_a_image != blank -%}
+        <img
+          class="ud-collection-card__img"
+          src="{{ section.settings.collection_a_image | image_url: width: 900 }}"
+          alt="{{ section.settings.collection_a_title | default: 'The Dissent Collection' }}"
+          width="900"
+          loading="lazy"
+        >
+      {%- else -%}
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#0f1a14,#0d0d0d);display:flex;align-items:center;justify-content:center">
+          <svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:.12">
+            <circle cx="60" cy="60" r="58" stroke="#C8A96E" stroke-width="1"/>
+            <line x1="60" y1="2" x2="60" y2="118" stroke="#C8A96E" stroke-width="1"/>
+            <line x1="60" y1="60" x2="12" y2="105" stroke="#C8A96E" stroke-width="1"/>
+            <line x1="60" y1="60" x2="108" y2="105" stroke="#C8A96E" stroke-width="1"/>
+          </svg>
+        </div>
+      {%- endif -%}
+      <div class="ud-collection-card__overlay"></div>
+      <div class="ud-collection-card__content">
+        <span class="ud-label" style="display:block;margin-bottom:.75rem">Collection 01</span>
+        <h2 class="ud-collection-card__title">{{ section.settings.collection_a_title | default: 'The Dissent Collection' }}</h2>
+        <p class="ud-collection-card__desc">{{ section.settings.collection_a_desc | default: 'Anti-establishment. Anti-war. Anti-everything-they-told-you-was-normal.' }}</p>
+        <span class="ud-btn ud-btn--outline">Explore →</span>
+      </div>
+    </a>
+
+    <a href="{{ section.settings.collection_b_url | default: '/collections/signal' }}" class="ud-collection-card">
+      {%- if section.settings.collection_b_image != blank -%}
+        <img
+          class="ud-collection-card__img"
+          src="{{ section.settings.collection_b_image | image_url: width: 900 }}"
+          alt="{{ section.settings.collection_b_title | default: 'The Signal Collection' }}"
+          width="900"
+          loading="lazy"
+        >
+      {%- else -%}
+        <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a120d,#0d0d0d);display:flex;align-items:center;justify-content:center">
+          <svg width="140" height="140" viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:.12">
+            <circle cx="70" cy="70" r="60" stroke="#C8A96E" stroke-width="1"/>
+            <circle cx="70" cy="70" r="40" stroke="#C8A96E" stroke-width="1"/>
+            <circle cx="70" cy="70" r="20" stroke="#C8A96E" stroke-width="1"/>
+            <circle cx="70" cy="70" r="5" fill="#C8A96E"/>
+            <line x1="70" y1="10" x2="70" y2="130" stroke="#C8A96E" stroke-width=".5"/>
+            <line x1="10" y1="70" x2="130" y2="70" stroke="#C8A96E" stroke-width=".5"/>
+          </svg>
+        </div>
+      {%- endif -%}
+      <div class="ud-collection-card__overlay"></div>
+      <div class="ud-collection-card__content">
+        <span class="ud-label" style="display:block;margin-bottom:.75rem">Collection 02</span>
+        <h2 class="ud-collection-card__title">{{ section.settings.collection_b_title | default: 'The Signal Collection' }}</h2>
+        <p class="ud-collection-card__desc">{{ section.settings.collection_b_desc | default: 'Sacred geometry. Esoteric iconography. Ancient knowledge in modern fabric.' }}</p>
+        <span class="ud-btn ud-btn--outline">Explore →</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ═══ FEATURED PRODUCT ═══ -->
+{%- if featured_product != blank -%}
+  {%- assign fp = featured_product -%}
+  <section class="ud-section ud-section--secondary">
+    <div class="ud-container">
+      <div class="ud-featured ud-reveal">
+        <div class="ud-featured__img-wrap">
+          {%- if fp.featured_image -%}
+            <img class="ud-featured__img" src="{{ fp.featured_image | image_url: width: 900 }}" alt="{{ fp.title }}" width="900" loading="lazy">
+          {%- endif -%}
+          <span class="ud-featured__tag">New Drop</span>
+        </div>
+        <div class="ud-featured__content">
+          <span class="ud-featured__eyebrow">Just Dropped</span>
+          <h2 class="ud-featured__title">{{ fp.title }}</h2>
+          <p class="ud-featured__desc">{{ fp.description | strip_html | truncate: 220 }}</p>
+          <span class="ud-featured__price">{{ fp.price | money }}</span>
+          <div class="ud-featured__meta">
+            {%- for tag in fp.tags limit: 3 -%}
+              <div class="ud-featured__meta-item"><strong>{{ tag }}</strong></div>
+            {%- endfor -%}
+          </div>
+          <div class="ud-product-info__atc">
+            <a href="{{ fp.url }}" class="ud-btn ud-btn--primary ud-btn--full">View Product</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+<!-- ═══ MANIFESTO ═══ -->
+<section class="ud-manifesto ud-section--dark">
+  <div class="ud-manifesto__line"></div>
+  <blockquote class="ud-manifesto__quote ud-reveal">{{ manifesto_quote }}</blockquote>
+  <cite class="ud-manifesto__attr">— UrbanDruid</cite>
+  <div class="ud-manifesto__line"></div>
+</section>
+
+<!-- ═══ PRODUCT GRID ═══ -->
+{%- assign grid_collection = section.settings.grid_collection -%}
+{%- if grid_collection != blank and grid_collection.products.size > 0 -%}
+  <section class="ud-section ud-section--secondary">
+    <div class="ud-container">
+      <div class="ud-section__header ud-reveal">
+        <span class="ud-label">The Capsule</span>
+        <h2>Latest Drops</h2>
+        <p>{{ section.settings.grid_subtext | default: '100 heavyweight designs. A capsule, not a catalogue. Every piece earns its place.' }}</p>
+      </div>
+      <div class="ud-product-grid">
+        {%- for product in grid_collection.products limit: section.settings.grid_limit -%}
+          <a href="{{ product.url }}" class="ud-product-card ud-reveal">
+            <div class="ud-product-card__img-wrap">
+              {%- if product.featured_image -%}
+                <img class="ud-product-card__img" src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title }}" width="600" loading="lazy">
+              {%- else -%}
+                <div class="ud-product-card__img" style="display:flex;align-items:center;justify-content:center;background:#111">
+                  <span style="font-family:var(--ud-font-mono);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ud-text-muted)">Add Image</span>
+                </div>
+              {%- endif -%}
+              {%- assign seven_days_ago = 'now' | date: '%s' | minus: 604800 -%}
+              {%- assign product_created_s = product.created_at | date: '%s' | plus: 0 -%}
+              {%- if product.available == false -%}
+                <span class="ud-product-card__badge">Sold Out</span>
+              {%- elsif product_created_s > seven_days_ago -%}
+                <span class="ud-product-card__badge">New</span>
+              {%- else -%}
+                <span class="ud-product-card__badge">New</span>
+              {%- endif -%}
+            </div>
+            <div class="ud-product-card__body">
+              {%- if product.collections.first -%}
+                <div class="ud-product-card__collection">{{ product.collections.first.title }}</div>
+              {%- endif -%}
+              <div class="ud-product-card__title">{{ product.title }}</div>
+              <div class="ud-product-card__footer">
+                <span class="ud-product-card__price">{{ product.price | money }}</span>
+                {%- if product.options contains 'Color' -%}
+                  <div class="ud-product-card__swatches">
+                    {%- for variant in product.variants -%}
+                      <span class="ud-swatch" style="background:{{ variant.option1 | downcase | replace: ' ', '' }}" title="{{ variant.option1 }}"></span>
+                    {%- endfor -%}
+                  </div>
+                {%- endif -%}
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+      <div style="text-align:center;margin-top:3rem" class="ud-reveal">
+        <a href="{{ grid_collection.url }}" class="ud-btn ud-btn--outline">View All Products</a>
+      </div>
+    </div>
+  </section>
+{%- endif -%}
+
+<!-- ═══ BRAND STRIP ═══ -->
+<section class="ud-section--tight ud-section--dark">
+  <div class="ud-container">
+    <div class="ud-brand-strip ud-reveal">
+      <div class="ud-brand-strip__item">
+        <div class="ud-brand-strip__heading">The Product</div>
+        <p class="ud-brand-strip__text">{{ section.settings.strip_product | default: 'Comfort Colors 1717, Shaka Wear 7.5oz, Lane Seven LS14001 hoodies. Premium heavyweight blanks only. Built to last a decade.' }}</p>
+      </div>
+      <div class="ud-brand-strip__item">
+        <div class="ud-brand-strip__heading">The Process</div>
+        <p class="ud-brand-strip__text">{{ section.settings.strip_process | default: 'Every design conceived, refined and approved before a single unit is printed. No filler. No compromise. No catalogue bloat.' }}</p>
+      </div>
+      <div class="ud-brand-strip__item">
+        <div class="ud-brand-strip__heading">The Promise</div>
+        <p class="ud-brand-strip__text">{{ section.settings.strip_promise | default: '100 pieces. A capsule, not a catalogue. Every piece earns its place or it doesn&apos;t exist.' }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ABOUT PREVIEW ═══ -->
+<section id="about" class="ud-section ud-section--secondary">
+  <div class="ud-container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:center">
+      <div style="position:relative;aspect-ratio:3/4;background:var(--ud-bg-card);border:1px solid var(--ud-border);display:flex;align-items:center;justify-content:center;overflow:hidden" class="ud-reveal">
+        <svg width="180" height="180" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="opacity:.35">
+          <circle cx="100" cy="100" r="90" stroke="#C8A96E" stroke-width="1"/>
+          <circle cx="100" cy="100" r="60" stroke="#C8A96E" stroke-width="1"/>
+          <circle cx="100" cy="100" r="30" stroke="#C8A96E" stroke-width="1"/>
+          <circle cx="100" cy="100" r="8" fill="#C8A96E" opacity=".6"/>
+          <line x1="100" y1="10" x2="100" y2="190" stroke="#C8A96E" stroke-width=".75"/>
+          <line x1="10" y1="100" x2="190" y2="100" stroke="#C8A96E" stroke-width=".75"/>
+          <line x1="27" y1="27" x2="173" y2="173" stroke="#C8A96E" stroke-width=".75"/>
+          <line x1="173" y1="27" x2="27" y2="173" stroke="#C8A96E" stroke-width=".75"/>
+          <polygon points="100,15 185,160 15,160" stroke="#C8A96E" stroke-width=".75" fill="none"/>
+          <polygon points="100,185 15,40 185,40" stroke="#C8A96E" stroke-width=".75" fill="none"/>
+        </svg>
+      </div>
+      <div class="ud-reveal ud-reveal--delay-1">
+        <span class="ud-label" style="margin-bottom:1.5rem;display:block">The Brand</span>
+        <p style="font-family:var(--ud-font-display);font-size:clamp(2rem,5vw,4rem);font-weight:200;font-style:italic;color:var(--ud-gold);line-height:1.15;margin-bottom:2rem">"There is a crack in every pavement."</p>
+        <p>{{ section.settings.about_text_1 | default: 'Something grows there — stubborn, chemical-resistant, architecturally inconvenient, and completely indifferent to the city&apos;s opinion of it.' }}</p>
+        <p style="margin-top:1.25rem">{{ section.settings.about_text_2 | default: 'UrbanDruid started from a single observation: the two worlds we&apos;re told are opposites — the urban and the natural, the systemic and the sacred — have never actually been at war.' }}</p>
+        <p style="color:var(--ud-gold);font-style:italic;margin-top:1.25rem">UrbanDruid is a signal, not a broadcast. If you know, you know.</p>
+        <div style="margin-top:2rem">
+          <a href="{{ section.settings.about_url | default: '/pages/about' }}" class="ud-btn ud-btn--outline">Read the Full Story</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ INNER CIRCLE — EMAIL SIGNUP ═══ -->
+<section id="drops" class="ud-inner-circle">
+  <div class="ud-inner-circle__symbol"></div>
+  <h2 class="ud-inner-circle__title ud-reveal">The Inner Circle</h2>
+  <p class="ud-inner-circle__desc ud-reveal ud-reveal--delay-1">{{ section.settings.ic_desc | default: 'Drop alerts. Early access. Transmissions from the urban wilderness. No noise. No spam. Just signal.' }}</p>
+  {%- form 'customer', id: 'ud-email-form' -%}
+    <input type="hidden" name="contact[tags]" value="newsletter,inner-circle">
+    <div class="ud-form ud-reveal ud-reveal--delay-2">
+      <input class="ud-form__input" type="email" name="contact[email]" placeholder="your@email.com" required autocomplete="email">
+      <button class="ud-form__submit" type="submit">Join</button>
+    </div>
+    {%- if form.errors -%}
+      <p style="color:#c0392b;font-family:var(--ud-font-mono);font-size:.65rem;text-align:center;margin-top:.75rem">{{ form.errors | default_errors }}</p>
+    {%- elsif form.posted_successfully? -%}
+      <p style="color:var(--ud-gold);font-family:var(--ud-font-mono);font-size:.65rem;text-align:center;margin-top:.75rem">You're in. Signal incoming.</p>
+    {%- endif -%}
+  {%- endform -%}
+  <p class="ud-inner-circle__disclaimer ud-reveal ud-reveal--delay-3">No spam. Unsubscribe anytime. Your data stays ours — never sold.</p>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var obs = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.ud-reveal').forEach(function (el) { obs.observe(el); });
+  });
+</script>
 
 {% schema %}
 {
-  "name": "t:sections.main-page.name",
-  "tag": "section",
-  "class": "section",
+  "name": "UrbanDruid Home",
+  "tag": "div",
   "settings": [
     {
       "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "content": "Hero"
     },
+    { "type": "text",    "id": "hero_eyebrow",         "label": "Eyebrow text",        "default": "Premium Heavyweight Streetwear" },
+    { "type": "text",    "id": "hero_subtitle",         "label": "Subtitle",            "default": "Premium streetwear for people who read the fine print on civilisation." },
+    { "type": "text",    "id": "cta_primary_label",     "label": "Primary CTA label",   "default": "Shop the Drop" },
+    { "type": "url",     "id": "cta_primary_url",       "label": "Primary CTA URL" },
+    { "type": "text",    "id": "cta_secondary_label",   "label": "Secondary CTA label", "default": "The Brand" },
+    { "type": "url",     "id": "cta_secondary_url",     "label": "Secondary CTA URL" },
     {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 36
+      "type": "header",
+      "content": "Collections Split"
     },
+    { "type": "image_picker", "id": "collection_a_image", "label": "Collection A image" },
+    { "type": "text",    "id": "collection_a_title",    "label": "Collection A title",  "default": "The Dissent Collection" },
+    { "type": "text",    "id": "collection_a_desc",     "label": "Collection A desc",   "default": "Anti-establishment. Anti-war. Anti-everything-they-told-you-was-normal." },
+    { "type": "url",     "id": "collection_a_url",      "label": "Collection A URL" },
+    { "type": "image_picker", "id": "collection_b_image", "label": "Collection B image" },
+    { "type": "text",    "id": "collection_b_title",    "label": "Collection B title",  "default": "The Signal Collection" },
+    { "type": "text",    "id": "collection_b_desc",     "label": "Collection B desc",   "default": "Sacred geometry. Esoteric iconography. Ancient knowledge in modern fabric." },
+    { "type": "url",     "id": "collection_b_url",      "label": "Collection B URL" },
     {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
+      "type": "header",
+      "content": "Featured Product"
+    },
+    { "type": "product", "id": "featured_product", "label": "Featured product" },
+    {
+      "type": "header",
+      "content": "Manifesto"
+    },
+    { "type": "textarea", "id": "manifesto_quote", "label": "Quote", "default": "\"The concrete remembers the forest. The forest never forgot the concrete.\"" },
+    {
+      "type": "header",
+      "content": "Product Grid"
+    },
+    { "type": "collection", "id": "grid_collection", "label": "Collection to display" },
+    { "type": "range",   "id": "grid_limit",          "label": "Number of products",  "min": 3, "max": 12, "step": 3, "default": 3 },
+    { "type": "text",    "id": "grid_subtext",         "label": "Grid subtext" },
+    {
+      "type": "header",
+      "content": "Brand Strip"
+    },
+    { "type": "text",    "id": "strip_product",        "label": "The Product text" },
+    { "type": "text",    "id": "strip_process",        "label": "The Process text" },
+    { "type": "text",    "id": "strip_promise",        "label": "The Promise text" },
+    {
+      "type": "header",
+      "content": "About Preview"
+    },
+    { "type": "textarea","id": "about_text_1",         "label": "About paragraph 1" },
+    { "type": "textarea","id": "about_text_2",         "label": "About paragraph 2" },
+    { "type": "url",     "id": "about_url",            "label": "About page URL" },
+    {
+      "type": "header",
+      "content": "Inner Circle"
+    },
+    { "type": "textarea","id": "ic_desc",              "label": "Inner Circle description" }
+  ],
+  "presets": [
+    {
+      "name": "UrbanDruid Home"
     }
   ]
 }
